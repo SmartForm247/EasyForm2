@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showLoading(true);
     auth.onAuthStateChanged(user => {
         if (user) {
-            window.location.href = '../../index.html';
+            window.location.href = '/index.html';
         } else {
             showLoading(false);
         }
@@ -103,7 +103,7 @@ function login() {
         .then((userCredential) => {
             // Signed in
             showLoading(false);
-            window.location.href = '../../index.html';
+            window.location.href = '/index.html';
         })
         .catch((error) => {
             // If sign in fails, check if user exists in Firestore
@@ -121,7 +121,7 @@ function login() {
                         auth.createUserWithEmailAndPassword(email, phone)
                             .then((userCredential) => {
                                 showLoading(false);
-                                window.location.href = '../../index.html';
+                                window.location.href = '/index.html';
                             })
                             .catch((createError) => {
                                 showLoading(false);
@@ -199,7 +199,7 @@ function signup() {
                     showLoading(false);
                     showNotification('Account created successfully!', 'success');
                     setTimeout(() => {
-                       window.location.href = '../../index.html';
+                       window.location.href = '/index.html';
                     }, 1500);
                 })
                 .catch((error) => {
