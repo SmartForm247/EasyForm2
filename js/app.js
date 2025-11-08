@@ -203,9 +203,9 @@ function loadUserData() {
                 
                 // Create multiple form links
                 const formLinks = {
-                    llc: `https://smartform247.github.io/EasyForm/EasyRegistrationForms/llc-input-form.html?owner=${uniqueId}`,
-                    sole: `https://smartform247.github.io/EasyForm/EasyRegistrationForms/sole-input-form.html?owner=${uniqueId}`,
-                    ngo: `https://smartform247.github.io/EasyForm/EasyRegistrationForms/ngo-input-form.html?owner=${uniqueId}`
+                    llc: `https://smartform247.github.io/EasyForm2/pages/llc-input-form.html?owner=${uniqueId}`,
+                    sole: `https://smartform247.github.io/EasyForm2/pages/sole-input-form.html?owner=${uniqueId}`,
+                    ngo: `https://smartform247.github.io/EasyForm2/pages/ngo-input-form.html?owner=${uniqueId}`
                 };
                 
                 const userData = {
