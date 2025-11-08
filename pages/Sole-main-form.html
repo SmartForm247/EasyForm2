@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../llc-css/input.css">
+ 
+  <link rel="stylesheet" href="../llc-css/new.css">
+   
+    <link rel="stylesheet" href="../llc-css/mainllc.css">
+    <link rel="stylesheet" href="../llc-css/signatures.css">
+    
+     <link rel="stylesheet" href="../llc-css/renderer.css">
+    <title>SOLE PROPRIETORSHIP FORM</title>
+    <style></style>
+  </head>
+  <body>
+<div class="button-container">
+ 
+  <button id="limited-company-download-btn" class="clear-btn">Download</button>
+  <button class="clear-all" id="reset-all">Reset All</button>
+  <button onclick="location.href='../../formsDashboard.html'" class="home" id="home">Back To Forms</button>
+</div>
+
+<main>
+
+  
+  
+<section class="sect1" id="sect1">
+  <div class="input-section">
+
+    <h2 class="header">SOLE PROPRIETORSHIP Form</h2>
+ <form id="icompanyForm">
+
+      <!-- ✅ COMPANY BASIC INFO -->
+      <fieldset id="icompanyInfo">
+        <legend>Company Information</legend>
+
+        <div class="form-group">
+          <label for="icompanyName">Company Name:</label>
+          <input type="text" id="icompanyName" value="AMUZU ENTERPRISE" required>
+        </div>
+
+        <div class="form-group">
+          <label for="iactivities">Activities:</label>
+          <input type="text" id="iactivities" value="General Trading and Supplies">
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="text" id="date" value="05/11/2025">
+        </div>
+
+        <div class="form-group">
+          <label for="iestimatedRevenue">Estimated Revenue:</label>
+          <input type="text" id="iestimatedRevenue" class="cell" value="100,000">
+        </div>
+
+        <div class="form-group">
+          <label for="inumOfEmployees">Number Of Employees:</label>
+          <input type="text" id="inumOfEmployees" class="cell" value="5">
+        </div>
+      </fieldset>
+
+      <!-- ✅ OFFICE DETAILS -->
+      <fieldset id="iofficeDetails">
+        <legend>Office Details</legend>
+
+        <div class="form-group">
+          <label for="iofficeGps">GPS Address:</label>
+          <input type="text" id="iofficeGps" value="GA-456-7890">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeLandmark">Landmark:</label>
+          <input type="text" id="iofficeLandmark" value="Near Adenta Shell Station">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeHseNo">Building No.:</label>
+          <input type="text" id="iofficeHseNo" value="15B">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeTown">Town:</label>
+          <input type="text" id="iofficeTown" value="Adenta">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeStreetName">Street Name:</label>
+          <input type="text" id="iofficeStreetName" value="Market Street">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeCity">City:</label>
+          <input type="text" id="iofficeCity" value="Accra">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeDistrict">District:</label>
+          <input type="text" id="iofficeDistrict" value="Adenta Municipal">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeRegion">Region:</label>
+          <input type="text" id="iofficeRegion" value="Greater Accra">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficePostalType">Postal Type:</label>
+          <select id="iofficePostalType" required>
+            <option value="">-- Select --</option>
+            <option  value="pobox">P.O. BOX</option>
+            <option value="pmb">PMB</option>
+            <option value="dtd">DTD</option>
+          </select>
+        </div>
+
+        <div id="iofficePostalFields">
+          <div class="form-group">
+            <label for="iofficeBoxNumber">Postal Number:</label>
+            <input type="text" id="iofficeBoxNumber" value="245">
+          </div>
+          <div class="form-group">
+            <label for="iofficeBoxTown">Postal Town:</label>
+            <input type="text" id="iofficeBoxTown" value="Accra">
+          </div>
+          <div class="form-group">
+            <label for="iofficeBoxRegion">Postal Region:</label>
+            <input type="text" id="iofficeBoxRegion" value="Greater Accra">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeContact1">Contact:</label>
+          <input type="text" id="iofficeContact1" value="0244001122">
+        </div>
+
+        <div class="form-group">
+          <label for="iofficeEmail">Email:</label>
+          <input type="text" id="iofficeEmail" value="info@amuzuent.com">
+        </div>
+      </fieldset>
+
+      <!-- ✅ OWNER INFORMATION -->
+      <fieldset id="iownerInfo">
+        <legend>Owner Information</legend>
+
+        <div class="form-group">
+          <label for="iownerTitle">Title:</label>
+          <select id="iownerTitle" required>
+            <option value="">-- Select --</option>
+            <option value="Mr">Mr</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Ms">Ms</option>
+            <option value="Dr">Dr</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="iownerGender">Gender:</label>
+          <select id="iownerGender" required>
+            <option value="">-- Select --</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="iownerFname">First Name:</label>
+          <input type="text" id="iownerFname" value="Francis">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerMname">Middle Name:</label>
+          <input type="text" id="iownerMname" value="Kwadzo">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerSurname">Surname:</label>
+          <input type="text" id="iownerSurname" value="Amuzu">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerFormerName">Former Name:</label>
+          <input type="text" id="iownerFormerName" value="N/A">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerDob">Date of Birth:</label>
+          <input type="text" id="iownerDob" value="12/08/1985">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerPob">Place of Birth:</label>
+          <input type="text" id="iownerPob" value="Ho">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerNationality">Nationality:</label>
+          <input type="text" id="iownerNationality" value="Ghanaian">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerOccupation">Occupation:</label>
+          <input type="text" id="iownerOccupation" value="Entrepreneur">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerContact1">Contact 1:</label>
+          <input type="text" id="iownerContact1" value="0244123456">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerContact2">Contact 2:</label>
+          <input type="text" id="iownerContact2" value="0208554433">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerEmail">Email:</label>
+          <input type="text" id="iownerEmail" value="franciskwadzoamuzu@gmail.com">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerMotherName">Mother's Name:</label>
+          <input type="text" id="iownerMotherName" value="Martha Amuzu">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerTin">TIN:</label>
+          <input type="text" id="iownerTin" value="P0012456789">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerGhanaCard">Ghana Card:</label>
+          <input type="text" id="iownerGhanaCard" value="GHA-123456789-0">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerGps">GPS:</label>
+          <input type="text" id="iownerGps" value="GA-098-5678">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerLandmark">Landmark:</label>
+          <input type="text" id="iownerLandmark" value="Near Kwamens Hotel">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerHseNo">House No.:</label>
+          <input type="text" id="iownerHseNo" value="26">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerStreet">Street:</label>
+          <input type="text" id="iownerStreet" value="Okorase Road">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerCity">City:</label>
+          <input type="text" id="iownerCity" value="Accra">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerTown">Town:</label>
+          <input type="text" id="iownerTown" value="Adenta">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerDistrict">District:</label>
+          <input type="text" id="iownerDistrict" value="Adenta Municipal">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerRegion">Region:</label>
+          <input type="text" id="iownerRegion" value="Greater Accra">
+        </div>
+
+        <div class="form-group">
+          <label for="iownerCountry">Country:</label>
+          <input type="text" id="iownerCountry" value="Ghana">
+        </div>
+      </fieldset>
+
+    </form>
+
+
+  
+  </div>
+  <div class="data-section">
+     <div class="container">
+    <div class="nav-container">
+      <h2 id="mainTitle">Client Data Dashboard</h2>
+      
+    </div>
+
+    <!-- User Information -->
+    <div id="userInfo" class="user-info">
+      <i class="fas fa-user-circle"></i>
+      <div>
+        <p>Welcome, <span class="user-name" id="userName">User</span></p>
+        <p>Your Unique ID: <span id="userUniqueId"></span></p>
+      </div>
+    </div>
+
+    <!-- Client List View -->
+    <div id="clientListView">
+      <div class="form-container">
+        <div class="section-header">
+          <h3>Submitted Client Data</h3>
+          <button class="btn-add" onclick="window.location.href='llc-input-form.html'">Add New Client</button>
+        </div>
+        <div id="clientListContainer" class="client-list">
+          <!-- Client entries will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Detail View -->
+    <div id="clientDetailView" style="display: none;">
+      <div class="form-container">
+        <div class="section-header">
+          <button class="btn-cancel" onclick="showClientList()">← Back to Client List</button>
+          <h3 id="clientDetailTitle">Client Data</h3>
+        </div>
+        <div id="clientDetailContainer">
+          <!-- Client data will be displayed here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification element -->
+  <div id="notification" class="notification"></div>
+  </div>
+  
+</section>
+
+
+<!--output section-->
+
+<!--output section-->
+
+<section class="sect2" id="sect2" style="display:;">
+
+
+  <!--  page one-->
+<div class="document">
+
+  <div class="page">
+    <img src="../sole-images/Form A_page-0001.jpg" alt="Page 1">
+    <p class="overlay-text companyName" id="companyName"  style="top: 204px; left: 169px;width: 420px; " >
+     
+    </p>
+
+ 
+  
+
+
+       <p class="overlay-text" id="principalActivities"  style="top: 712px; left: 28px;width: 587px; ;">
+       
+      </p>
+
+      
+      <p class="overlay-text" id="date"  style="top: 825px; left: 217px;width: 183px;  ">
+      
+      </p>
+
+
+ <p class="overlay-text" id="officedigital address" style="top:882px; left:217px; width: 180px;">
+   
+</p>
+
+
+<p class="overlay-text" id="officeLandmark" style="top:901px; left:217px; width:388px;">
+  
+</p>
+
+<p class="overlay-text" id="officehousenumber" style="top:919px; left:217px; width: 123px; border-top: none;">
+  
+</p>
+
+<p class="overlay-text" id="officetown" style="top:919px; left: 352px; width: 253px; border-top: none;">
+
+</p>
+
+<p class="overlay-text" id="officeStreet" style="top:938px; left:217px; width:388px;">
+ 
+</p>
+
+<p class="overlay-text" id="officeCity" style="top:957px; left:217px; width:388px;">
+
+</p>
+
+  </div>
+
+  <!-- page two -->
+<div class="page">
+  <img src="../sole-images/Form A_page-0002.jpg" alt="Page 2">
+
+ 
+<p class="overlay-text" id="officeDistrict" style="top:4px; left:217px; width:388px;">
+  
+</p>
+
+<p class="overlay-text" id="officeRegion" style="top:22.8px; left:217px; width:388px; ">
+  
+</p>
+
+<p class="overlay-text" style="top: 40.5px; left: 312.5px; width: 12px;">
+
+</p>
+
+<p class="overlay-text" style="top: 40.5px; left: 479.5px; width: 12px;">
+    &#10004;
+</p>
+
+
+
+<p class="overlay-text" style="top: 40.5px; left: 600px; width: 11px;">
+  
+</p>
+
+
+<p class="overlay-text" style="top: 60px; left: 335.5px; width: 12px;">
+
+</p>
+
+<p class="overlay-text" style="top: 59px; left: 408.5px; width: 12px;">
+   &#10004;
+</p>
+
+
+
+<p class="overlay-text" id="sameasabove" style="top: 240px; left: 292px; width: 240px; transform: rotate(-29deg); position: absolute; font-size: 23px;border: none;background-color: transparent;">
+  same as above
+</p>
+
+
+<p class="overlay-text" id="sameaabove" style="top: 409px; left: 292px; width: 240px; transform: rotate(-29deg); position: absolute; font-size: 23px;border: none; background-color: transparent;">
+  same as above
+</p>
+
+<p id="emptyBox1" class="overlay-text" style="top: 587.5px; left: 289px; width: 11px;">
+ 
+</p>
+
+
+
+
+<p id="emptyBox2" class="overlay-text" style="top:587.5px; left: 390px; width: 12px;">
+  2
+</p>
+
+<p id="emptyBox3" class="overlay-text" style="top: 587.5px; left: 482px; width: 12px; ">
+ 
+</p>
+
+
+
+
+<p class="overlay-text" id="POBOX" style="top: 607px; left:217px; width: 83px; ">
+ 
+</p>
+
+<p class="overlay-text" id="PMB" style="top: 607px; left: 313.5px; width: 83px; ">
+ 
+ 
+</p>
+
+<p class="overlay-text" id="DTD" style="top: 607px; left: 409px; width: 83px; ">
+ 
+ 
+</p>
+
+
+<p class="overlay-text" id="officePostalCodeTown" style="top:625px; left:217px; width:388px;">
+  
+</p>
+
+<p class="overlay-text" id="officePostalCodeRegion" style="top: 644px; left:217px; width:388px;">
+ 
+</p>
+
+
+<p class="overlay-text" id="contactOne" style="top: 682px; left:217px; width:388px;">
+ 
+</p>
+
+<p class="overlay-text" id="contactTwo" style="top:700.5px; left:217px; width:388px;">
+ 
+</p>
+
+<p class="overlay-text" id="email" style="top: 775px; left:217px; width:388px;">
+  
+</p>
+
+<p id="TittleMR" class="overlay-text" style="top: 833px; left: 266.5px; width: 12px;">
+ 
+</p>
+
+<p id="TittleMRS"  class="overlay-text" style="top: 833px; left: 361.5px; width: 12px;">
+  
+</p>
+
+
+<p id="TittleMISS"  class="overlay-text" style="top: 833px; left: 456px; width: 12px;">
+  
+</p>
+
+
+<p id="TittleMS"  class="overlay-text" style="top: 833px; left: 528px; width: 12px;">
+  
+</p>
+
+
+<p id="TittleDR"  class="overlay-text" style="top: 833px; left: 601px; width: 12px;">
+  
+</p>
+
+
+  <p class="overlay-text" id="FirstName" style="top:851px; left:217px; width:388px;  ">
+   
+</p>
+
+<p class="overlay-text" id="OwnerMiddleName" style="top:869.8px; left: 217px; width:388px;  ">
+  
+</p>
+
+<p class="overlay-text" id="OwnerLastName" style="top:888.8px; left: 217px; width:388px;">
+ 
+</p>
+
+<p class="overlay-text" id="OwnerFormerName" style="top:908px; left: 217px; width:388px; ">
+  
+</p>
+
+
+<p class="overlay-text" id="GenderMale" style="top: 926px; left: 264.5px; width: 12px;">
+  
+</p>
+
+<p class="overlay-text" id="GenderFemale" style="top: 926px; left: 360px; width: 12px;">
+  
+</p>
+
+<p class="overlay-text" id="OwnerDOB" style="top: 946px; left: 217px; width:388px; ">
+
+</p>
+
+</div>
+
+<div class="page">
+  <img src="../sole-images/Form A_page-0003.jpg" alt="Page 2">
+
+
+
+<p class="overlay-text" id="OwnerNationality" style="top:4px; left: 217px; width:388px;  ">
+  Nationality
+</p>
+
+<p class="overlay-text" id="Ocupation" style="top: 23px; left: 217px; width:388px;">
+   
+</p>
+
+<p class="overlay-text" id="OwnerPhoneNO1" style="top:41px; left: 217px; width:388px;">
+  
+</p>
+
+<p class="overlay-text" id="OwnerPhoneNO2" style="top:60px; left: 217px; width:388px;">
+   
+</p>
+
+<p class="overlay-text" id="OwnerEmail" style="top:98px; left: 217px; width:388px;">
+   
+</p>
+
+<p class="overlay-text" id="OwnerTIN" style="top:117px; left: 217px; width:388px;">
+   
+</p>
+
+<p class="overlay-text" id="OwnerGhanaCard" style="top:135.5px; left: 300px; width: 245px; ">
+  
+</p>
+
+
+<p class="overlay-text" id="OwnerDigitalAddress" style="top:192px; left: 217px; width:388px; ">
+ 
+</p>
+
+
+
+<p class="overlay-text" id="OwnerLandmark" style="top:210.5px; left: 217px; width:388px;">
+   
+</p>
+
+<p class="overlay-text" id="Ownerhousenumber" style="top: 229px; left: 217px; width: 123px; ">
+  
+ 
+</p>
+
+<p class="overlay-text" id="Ownertown" style="top:229px; left: 352px; width: 253px; ">
+  
+</p>
+
+<p class="overlay-text" id="OwnerStreet" style="top:248px; left: 217px; width:388px;">
+     
+</p>
+
+<p class="overlay-text" id="OwnerCity" style="top:267.5px; left: 217px; width:388px;">
+   City
+</p>
+<p class="overlay-text" id="OwnerDistrict" style="top:286px; left: 217px; width:388px;">
+  
+</p>
+<p class="overlay-text" id="OwnerRegion" style="top:306px; left: 217px; width:388px; ">
+   
+</p>
+<p class="overlay-text" id="OwnerCountry" style="top: 324.5px; left: 217px; width:388px; ; ">
+ 
+</p>
+
+<p class="overlay-text" id="revenueEnvisage" style="top: 362px; left: 217px; width: 223px; ">
+  
+  Revenue envisage
+</p>
+
+<p class="overlay-text" id="NoOfemployee" style="top: 381px; left: 217px; width: 223px; ">
+  
+  no. of employees
+</p>
+
+<p class="overlay-text" id="Ownerfullname" style="top: 510px; left: 65px; width: 330px;border-top:none; border-bottom:none;">
+  
+  Full name of propritor
+</p>
+
+
+<p class="overlay-text" id="date2" style="top:595px; left: 550px; width: 153px;border-top:none; border-bottom:none;">
+  Date
+</p>
+
+</div>
+
+
+<div class="page">
+  <img src="../sole-images/Form A_page-0004.jpg" alt="Page 2">
+
+</div>
+</div>
+</section>
+
+
+</main>
+ <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="../llc-js/editable.js"></script>
+   
+      
+  
+<script src="../llc-js/global.js"></script>
+
+<script src="../llc-js/SoleHandler.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="../llc-js/renderer.js"></script>
+<script src="../llc-js/validation.js"></script>
+
+
+
+ <script src="../llc-js/structure.js"></script>
+ <script src="/EasyRegistrationForms/app.js"></script>
+ <script src="../llc-js/download.js"></script>
+  </body>
+</html>
