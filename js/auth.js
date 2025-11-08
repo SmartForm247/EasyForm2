@@ -50,7 +50,7 @@ App.registerModule('Auth', function () {
     auth.signInWithEmailAndPassword(email, phone)
       .then(() => {
         showLoading(false);
-        window.location.href = '/index.html';
+        window.location.href = '../index.html';
       })
       .catch((error) => {
         if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
@@ -64,7 +64,7 @@ App.registerModule('Auth', function () {
               auth.createUserWithEmailAndPassword(email, phone)
                 .then(() => {
                   showLoading(false);
-                  window.location.href = '/index.html';
+                  window.location.href = '../index.html';
                 })
                 .catch((createError) => {
                   showLoading(false);
@@ -121,7 +121,7 @@ App.registerModule('Auth', function () {
           .then(() => {
             showLoading(false);
             showNotification('Account created successfully!', 'success');
-            setTimeout(() => { window.location.href = '/index.html'; }, 1500);
+            setTimeout(() => { window.location.href = '../index.html'; }, 1500);
           })
           .catch((error) => {
             console.error('Error creating user document:', error);
@@ -151,7 +151,7 @@ App.registerModule('Auth', function () {
       showLoading(true);
       auth.onAuthStateChanged(user => {
         if (user) {
-          window.location.href = '/index.html';
+          window.location.href = '../index.html';
         } else {
           showLoading(false);
         }
