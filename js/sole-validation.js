@@ -1,4 +1,8 @@
- function updateSelectStyle(select) {
+// sole-validation.js
+
+App.registerModule('Validation', function () {
+  // --- Private Helper Functions ---
+  function updateSelectStyle(select) {
     select.classList.toggle("empty", select.value === "");
     select.classList.toggle("filled", select.value !== "");
   }
@@ -8,38 +12,28 @@
     input.classList.toggle("filled", input.value.trim() !== "");
   }
 
-  // ✅ Validate all inputs & selects in the document
   function revalidateAllFields() {
     document.querySelectorAll("select").forEach(updateSelectStyle);
     document.querySelectorAll("input").forEach(updateInputBorder);
   }
 
-  // Event: change (select dropdowns)
-  document.addEventListener("change", e => {
+  function handleChangeEvent(e) {
     if (e.target.tagName.toLowerCase() === "select") {
       updateSelectStyle(e.target);
     }
-  });
+  }
 
-  // Event: typing (inputs)
-  document.addEventListener("input", e => {
+  function handleInputEvent(e) {
     if (e.target.tagName.toLowerCase() === "input") {
       updateInputBorder(e.target);
     }
-  });
+  }
 
-  // ✅ Event: paste (anywhere → revalidate everything)
-  document.addEventListener("paste", () => {
+  function handlePasteOrDrop() {
     setTimeout(revalidateAllFields, 20);
-  });
+  }
 
-  // ✅ Event: drop text (drag + drop)
-  document.addEventListener("drop", () => {
-    setTimeout(revalidateAllFields, 20);
-  });
-
-  // ✅ Monitor dynamic elements
-  const observer = new MutationObserver(mutations => {
+  function handleMutation(mutations) {
     mutations.forEach(mutation => {
       mutation.addedNodes.forEach(node => {
         if (!node.querySelectorAll) return;
@@ -54,10 +48,37 @@
         node.querySelectorAll("input").forEach(updateInputBorder);
       });
     });
-  });
+  }
 
-  observer.observe(document.body, { childList: true, subtree: true });
+  // --- Public API ---
+  return {
+    init() {
+      console.log("Validation module initialized.");
 
-  // ✅ Validate everything on page load + on back/forward restore
-  window.addEventListener("load", revalidateAllFields);
-  window.addEventListener("pageshow", revalidateAllFields);
+      // Event: change (select dropdowns)
+      document.addEventListener("change", handleChangeEvent);
+
+      // Event: typing (inputs)
+      document.addEventListener("input", handleInputEvent);
+
+      // Event: paste or drop (revalidate everything)
+      document.addEventListener("paste", handlePasteOrDrop);
+      document.addEventListener("drop", handlePasteOrDrop);
+
+      // Monitor dynamic elements
+      const observer = new MutationObserver(handleMutation);
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Validate everything on page load and on back/forward restore
+      window.addEventListener("load", revalidateAllFields);
+      window.addEventListener("pageshow", revalidateAllFields);
+
+      // Initial validation on start
+      revalidateAllFields();
+    },
+
+    // Expose the main revalidation function
+    revalidateAll: revalidateAllFields
+  };
+});
+
