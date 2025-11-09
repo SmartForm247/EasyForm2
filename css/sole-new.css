@@ -15,15 +15,15 @@ body {
 /* ✅ Button container */
 .button-container {
   position: fixed;
-  width: 600px;
-  max-width: 95%;
+  width: 700px;
+ 
   left: 10px;
   right: 10px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   background-color: black;
-  padding: 10px;
+  
   border-radius: 10px;
   z-index: 1000; /* stay on top */
 }
@@ -32,6 +32,7 @@ body {
 .button-container button {
   padding: 10px 20px;
   border: none;
+  width: 190px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
