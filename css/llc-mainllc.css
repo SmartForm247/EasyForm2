@@ -69,8 +69,8 @@
 
     /* Text overlay */
     .overlay-text {
-      
-     font-weight:bolder;
+    font-family: 'Caveat', sans-serif;
+   
       color: black;
       background-color: white;
        line-height: 1.242;

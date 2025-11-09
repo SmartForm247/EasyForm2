@@ -69,7 +69,7 @@
     /* Text overlay */
     .overlay-text {
       position: absolute;
-     font-weight:bolder;
+     
       color: black;
       background: rgb(206, 76, 76); /* optional: white background for readability */
       padding: 0px 2px;
