@@ -115,9 +115,9 @@ App.registerModule('Download', function () {
     init() {
       console.log("Download module initialized.");
       // Call setupDownload() for each button
-      setupDownload("sole-download-btn", 10, "Sole Proprietor PDF");
-      setupDownload("limited-company-download-btn", 20, "Limited Company PDF");
-      setupDownload("partnership-download-btn", 20, "Partnership PDF");
+      setupDownload("sole-download-btn", 1, "Sole Proprietor PDF");
+      setupDownload("limited-company-download-btn", 1, "Limited Company PDF");
+      setupDownload("partnership-download-btn", 1, "Partnership PDF");
     }
   };
 });
