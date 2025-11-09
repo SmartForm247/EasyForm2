@@ -1,31 +1,34 @@
- body {
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+/* ✅ Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
+/* ✅ Base body styling */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Caveat', cursive;
+}
 
-  .button-container {
+/* ✅ Button container */
+.button-container {
   position: fixed;
- width: 500px;
-  right: 200px;
+  width: 600px;
+  max-width: 95%;
   left: 10px;
+  right: 10px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;  
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   background-color: black;
   padding: 10px;
-  
   border-radius: 10px;
-  z-index: 1000;  /* ensure it stays on top */
-  
+  z-index: 1000; /* stay on top */
 }
 
-/* Make all buttons share the same style */
+/* ✅ Button styles */
 .button-container button {
   padding: 10px 20px;
   border: none;
@@ -36,89 +39,164 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Different colors for each button */
+/* ✅ Button colors */
 .print-btn { background: green; }
 .clear-btn { background: blue; }
 .clear-all { background: red; }
 .home { background: rgb(9, 164, 184); }
 
-/* Optional hover effects */
+/* ✅ Hover effects */
 .print-btn:hover { background: #005c00; }
 .clear-btn:hover { background: #003d99; }
 .clear-all:hover { background: darkred; }
 .home:hover { background: #007d8c; }
 
+/* ✅ Page layout */
+.page {
+  position: relative;
+  display: block;
+  width: 210mm; /* A4 width */
+  margin: 0 auto;
+  border: none;
+  page-break-before: auto;
+  page-break-inside: avoid;
+}
 
-    /* Page wrapper */
-    .page {
-      position: relative;    /* allows overlay */
-      display: block;
-      width: 210mm;          /* A4 width */
-      margin: 0 auto;
-      border: none;
-      page-break-before: auto;
-      page-break-inside: avoid;
-    }
+.page img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
-    .page img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+/* ✅ Overlay text */
+.overlay-text {
+  position: absolute;
+  color: #222;
+  background: rgba(255,255,255,0.7);
+  padding: 0px 2px;
+  font-family: 'Caveat', cursive;
+  font-size: 13.3px;
+  line-height: 1.242;
+  text-transform: uppercase;
+}
 
-    /* Text overlay */
-    .overlay-text {
-      position: absolute;
-     
-      color: black;
-      background: rgb(206, 76, 76); /* optional: white background for readability */
-      padding: 0px 2px;
-      font-family: 'Caveat', cursive; /* handwriting style */
-      font-size: 13.3px;                /* bigger, like pen writing */
-      
-      color: #222;                    /* dark ink color */
-      text-transform: uppercase;             /* force ALL CAPS */
-      
-    }
-
-    /* Print adjustments */
-    @media print {
-      body {
-        background: white;
-      }
-      .button-container {
-        display: none;  /* hide button container */
-      }
-      .print-btn {
-        display: none;
-      }
-     .clear-btn{
-        display: none;
-      }
-
-      .clear-all{
-        display: none;
-      }
-      .home{
-        display: none;
-      }
-
-      .page {
-        width: 210mm;
-        height: 297mm;
-        page-break-after: always;
-      }
-    }
-
-
-
-
-.signature{
+/* ✅ Signature & static text */
+.signature {
   background-color: transparent;
   color: red;
 }
 
- .static{
+.static {
   color: #003d99;
   background-color: #f9f9f9;
- }
+}
+
+p {
+  background-color: transparent;
+}
+
+/* ✅ Validation message styling */
+.share-validation-error {
+  font-size: 0.8em;
+  margin-top: 4px;
+  display: none;
+}
+
+/* Validation states */
+.share-validation-error.error {
+  color: red !important;
+  display: block !important;
+}
+
+.share-validation-error.warning {
+  color: rgb(0, 42, 255) !important;
+  display: block !important;
+}
+
+/* Field color validation */
+select.empty {
+  background-color: red !important;
+  color: white !important;
+}
+
+select.filled {
+  background-color: green !important;
+  color: white !important;
+}
+
+input.empty {
+  border: 2px solid red !important;
+}
+
+input.filled {
+  border: 2px solid green !important;
+}
+
+/* ✅ Print formatting */
+@media print {
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 210mm;
+    height: auto;
+    background: white !important;
+    display: block !important;
+    flex-direction: initial !important;
+    align-items: initial !important;
+    overflow: visible !important;
+  }
+
+  .button-container,
+  .print-btn,
+  .clear-btn,
+  .clear-all,
+  .home {
+    display: none !important; /* hide buttons on print */
+  }
+
+  .page {
+    position: relative;
+    display: block;
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    page-break-after: always;
+    overflow: hidden;
+    transform: none !important;
+    backface-visibility: hidden;
+  }
+}
+
+/* ✅ Mobile responsiveness */
+@media screen and (max-width: 768px) {
+  .button-container {
+    width: 95%;
+    left: 2.5%;
+    right: 2.5%;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .button-container button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .page {
+    width: 100%;
+    margin: 0;
+  }
+
+  .overlay-text {
+    font-size: 10px;
+    padding: 0 1px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .button-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
