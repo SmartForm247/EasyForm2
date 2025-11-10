@@ -17,11 +17,17 @@ function initializeApp() {
   
 // List of all OTHER modules that need to be initialized
 const modulesToInit = [
-  'Auth', // <-- THIS LINE IS CRITICAL FOR THE LOGIN PAGE
-  'Structure', 'SoleRenderer', 'SoleHandler', 
-  'LLCRenderer', // <-- ADD THIS LINE
-  'Validation', 'Download', 'Editable'
+  'Auth',
+  'Structure',
+  'SoleRenderer',
+  'SoleHandler',
+  'LLCRenderer',
+  'Validation',
+  'Download',
+  'Editable',
+  'UpdateCounts' // ✅ Add this line
 ];
+
   modulesToInit.forEach(moduleName => {
     const moduleInstance = App.use(moduleName);
     if (moduleInstance && typeof moduleInstance.init === 'function') {

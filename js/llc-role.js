@@ -59,6 +59,12 @@
                   }
                   // *** FIX: Trigger overlay update after removal ***
                   setTimeout(() => window.LLCOverlay?.update(), 50);
+
+                  // ✅ NEW: Update counts after linked items are removed
+                  const Counter = App.use('UpdateCounts');
+                  if (Counter && typeof Counter.update === 'function') {
+                    Counter.update();
+                  }
                 }
               });
 
@@ -194,6 +200,12 @@
       }
       // *** FIX: Trigger overlay update after change ***
       setTimeout(() => window.LLCOverlay?.update(), 50);
+
+      // ✅ NEW: Update the counts after a role is added or removed
+      const Counter = App.use('UpdateCounts');
+      if (Counter && typeof Counter.update === 'function') {
+        Counter.update();
+      }
     },
 
     getFormData(fs, prefix) {
@@ -387,10 +399,14 @@
           Roles.fillSecretaryForm(dirData);
         }
       } finally {
-        Roles.isSyncing = false; // Release the lock
-        // *** FIX: Trigger overlay update after a full sync cycle ***
-        setTimeout(() => window.LLCOverlay?.update(), 50);
-      }
+    Roles.isSyncing = false; // Release the lock
+    // Update overlay and counts after a full sync
+    setTimeout(() => {
+        window.LLCOverlay?.update();
+        window.LLCOverlay?.updateCounts?.(); // trigger count refresh
+    }, 50);
+}
+
     },
     
     // *** UPDATED: Now uses a try...finally block with the sync lock ***

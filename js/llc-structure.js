@@ -120,19 +120,29 @@
       `;
 
       const removeBtn = makeRemoveButton('Remove Director');
-      removeBtn.addEventListener('click', () => {
-        fieldset.remove();
-        renumberFieldsets('idirectorsContainer', 'idirector', 'Director');
-      });
+     removeBtn.addEventListener('click', () => {
+  fieldset.remove();
+  renumberFieldsets('idirectorsContainer', 'idirector', 'Director');
+
+  // ✅ Update counts after removal
+  const Counter = App.use('UpdateCounts');
+  Counter?.update();
+});
+
       fieldset.appendChild(removeBtn);
       return fieldset;
     }
 
-    addDirectorBtn.addEventListener('click', () => {
-      const next = directorsContainer.querySelectorAll('fieldset').length + 1;
-      directorsContainer.appendChild(createDirectorBlock(next));
-      renumberFieldsets('idirectorsContainer', 'idirector', 'Director');
-    });
+  addDirectorBtn.addEventListener('click', () => {
+  const next = directorsContainer.querySelectorAll('fieldset').length + 1;
+  directorsContainer.appendChild(createDirectorBlock(next));
+  renumberFieldsets('idirectorsContainer', 'idirector', 'Director');
+
+  // ✅ Update counts
+  const Counter = App.use('UpdateCounts');
+  Counter?.update();
+});
+
 
     if (!directorsContainer.querySelector('fieldset')) {
       directorsContainer.appendChild(createDirectorBlock(1));
@@ -219,18 +229,26 @@
 
     const removeBtn = makeRemoveButton('Remove Subscriber');
     removeBtn.addEventListener('click', () => {
-      fieldset.remove();
-      renumberFieldsets('isubscribersContainer', 'isubscriber', 'Subscriber');
-    });
+  fieldset.remove();
+  renumberFieldsets('isubscribersContainer', 'isubscriber', 'Subscriber');
+
+  const Counter = App.use('UpdateCounts');
+  Counter?.update();
+});
+
     fieldset.appendChild(removeBtn);
     return fieldset;
   }
 
   addSubscriberBtn.addEventListener('click', () => {
-    const next = subscribersContainer.querySelectorAll('fieldset').length + 1;
-    subscribersContainer.appendChild(createSubscriberBlock(next));
-    renumberFieldsets('isubscribersContainer', 'isubscriber', 'Subscriber');
-  });
+  const next = subscribersContainer.querySelectorAll('fieldset').length + 1;
+  subscribersContainer.appendChild(createSubscriberBlock(next));
+  renumberFieldsets('isubscribersContainer', 'isubscriber', 'Subscriber');
+
+  const Counter = App.use('UpdateCounts');
+  Counter?.update();
+});
+
 
   if (!subscribersContainer.querySelector('fieldset')) {
     subscribersContainer.appendChild(createSubscriberBlock(1));
@@ -280,9 +298,13 @@
 
     const removeBtn = makeRemoveButton('Remove Owner');
     removeBtn.addEventListener('click', () => {
-      fieldset.remove();
-      renumberFieldsets('iownersContainer', 'iowner', 'Beneficial Owner');
-    });
+  fieldset.remove();
+  renumberFieldsets('iownersContainer', 'iowner', 'Beneficial Owner');
+
+  const Counter = App.use('UpdateCounts');
+  Counter?.update();
+});
+
     fieldset.appendChild(removeBtn);
 
     // ✅ Add class 'cell' to all input fields within this owner block
@@ -292,10 +314,13 @@
   }
 
   addOwnerBtn.addEventListener('click', () => {
-    const next = ownersContainer.querySelectorAll('fieldset').length + 1;
-    ownersContainer.appendChild(createOwnerBlock(next));
-    renumberFieldsets('iownersContainer', 'iowner', 'Beneficial Owner');
-  });
+  const next = ownersContainer.querySelectorAll('fieldset').length + 1;
+  ownersContainer.appendChild(createOwnerBlock(next));
+  renumberFieldsets('iownersContainer', 'iowner', 'Beneficial Owner');
+
+  const Counter = App.use('UpdateCounts');
+  Counter?.update();
+});
 
   if (!ownersContainer.querySelector('fieldset')) {
     ownersContainer.appendChild(createOwnerBlock(1));
