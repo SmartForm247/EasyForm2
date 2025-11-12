@@ -113,23 +113,6 @@ App.registerModule('App', function () {
       if (soleLinkElement) soleLinkElement.value = userData.formLinks.sole || 'Generating link...';
       const ngoLinkElement = document.getElementById('NGODataLink');
       if (ngoLinkElement) ngoLinkElement.value = userData.formLinks.ngo || 'Generating link...';
-    } else if (userData.shareableLink) {
-      const uniqueId = userData.uniqueId;
-      const formLinks = {
-        llc: userData.shareableLink,
-        sole: `https://smartform247.github.io/EasyForm/EasyRegistrationForms/sole-input-form.html?owner=${uniqueId}`,
-        ngo: `https://smartform247.github.io/EasyForm/EasyRegistrationForms/ngo-input-form.html?owner=${uniqueId}`
-      };
-      const formUsage = userData.formUsage || { llc: userData.usage_count || 0, sole: 0, ngo: 0 };
-      db.collection('users').doc(currentUser.uid).update({ formLinks, formUsage })
-        .then(() => { console.log('User document updated with new form structure'); loadUserData(); })
-        .catch(error => { console.error('Error updating user document:', error); });
-      const llcLinkElement = document.getElementById('LLCDataLink');
-      if (llcLinkElement) llcLinkElement.value = userData.shareableLink;
-      const soleLinkElement = document.getElementById('SoleDataLink');
-      if (soleLinkElement) soleLinkElement.value = formLinks.sole;
-      const ngoLinkElement = document.getElementById('NGODataLink');
-      if (ngoLinkElement) ngoLinkElement.value = formLinks.ngo;
     }
     const transactionsList = document.getElementById('transactionsList');
     if (transactionsList) {
@@ -173,7 +156,31 @@ App.registerModule('App', function () {
         showLoading(false);
         if (doc.exists) {
           console.log('User data updated in real-time:', doc.data());
-          updateDashboard(doc.data());
+          const userData = doc.data();
+
+          // --- RESTORED: MIGRATION LOGIC FOR OLD USERS ---
+          if (!userData.formLinks && userData.shareableLink) {
+            console.log('Migrating user data structure for user:', currentUser.uid);
+            const uniqueId = userData.uniqueId;
+            const formLinks = {
+              llc: userData.shareableLink,
+              sole: `https://smartform247.github.io/EasyForm/EasyRegistrationForms/sole-input-form.html?owner=${uniqueId}`,
+              ngo: `https://smartform247.github.io/EasyForm/EasyRegistrationForms/ngo-input-form.html?owner=${uniqueId}`
+            };
+            const formUsage = userData.formUsage || { llc: userData.usage_count || 0, sole: 0, ngo: 0 };
+            
+            // Update the document with the new structure and remove the old field
+            userDocRef.update({ formLinks, formUsage, shareableLink: firebase.firestore.FieldValue.delete() })
+              .then(() => console.log('User document migrated successfully.'))
+              .catch(error => console.error('Error migrating user document:', error));
+              
+            // Update local data to reflect the change immediately for the UI
+            userData.formLinks = formLinks;
+            userData.formUsage = formUsage;
+          }
+          // --- END OF MIGRATION LOGIC ---
+
+          updateDashboard(userData);
         } else {
           console.log('User document not found, creating new one.');
           const email = currentUser.email;
@@ -206,81 +213,112 @@ App.registerModule('App', function () {
     );
   }
 
-  function processPayment() {
-    const amountInput = document.getElementById('customAmount').value.trim();
-    const amount = Number(amountInput);
-    const selectedPaymentMethod = document.querySelector('.payment-method.selected');
-    const paymentNumber = document.getElementById('paymentNumber').value.trim();
-    const email = document.getElementById('paymentEmail').value.trim() || 'user@example.com';
+ // In app.js
+// In app.js
+// In app.js
 
-    if (!amount || isNaN(amount) || amount <= 0) {
-      showNotification('Please enter a valid amount', 'error');
-      return;
-    }
-    if (!selectedPaymentMethod) {
-      showNotification('Please select a payment method', 'error');
-      return;
-    }
-    if (!paymentNumber) {
-      showNotification('Please enter your mobile money number', 'error');
-      return;
-    }
-    const paymentMethod = selectedPaymentMethod.dataset.method;
-    console.log('Processing payment:', { amount, paymentMethod, paymentNumber });
+function processPayment() {
+  console.log("🔍 processPayment: Function started.");
 
+  // Check if Paystack library is loaded
+  if (typeof PaystackPop === 'undefined') {
+    console.error("🔥 processPayment: PaystackPop is not defined.");
+    showNotification('Payment system is still loading. Please wait a moment and try again.', 'error');
+    return;
+  }
+
+  const amountInput = document.getElementById('customAmount').value.trim();
+  const amount = Number(amountInput);
+  const selectedPaymentMethod = document.querySelector('.payment-method.selected');
+  const paymentNumber = document.getElementById('paymentNumber').value.trim();
+  const email = document.getElementById('paymentEmail').value.trim() || 'test@example.com';
+
+  if (!amount || isNaN(amount) || amount <= 0) {
+    console.error("🔥 processPayment: Invalid amount:", amount);
+    showNotification('Please enter a valid amount', 'error');
+    return;
+  }
+  if (!selectedPaymentMethod) {
+    console.error("🔥 processPayment: No payment method selected.");
+    showNotification('Please select a payment method', 'error');
+    return;
+  }
+  if (!paymentNumber) {
+    console.error("🔥 processPayment: No payment number.");
+    showNotification('Please enter your mobile money number', 'error');
+    return;
+  }
+
+  console.log("✅ processPayment: All validations passed. Preparing to setup Paystack.");
+
+  try {
     const handler = PaystackPop.setup({
       key: paystackKey,
       email: email,
       amount: amount * 100,
       currency: 'GHS',
       ref: 'PSK' + Math.floor((Math.random() * 1000000000) + 1),
+      
+      // --- The Callback Function ---
+      // This runs AFTER a successful payment in the Paystack popup.
       callback: function (response) {
-        console.log('✅ Payment callback received:', response);
+        console.log('✅ Paystack callback received:', response);
         showLoading(true);
-        const transaction = {
-          type: 'credit', amount, method: 'Mobile Money',
-          provider: paymentMethod, timestamp: new Date(), ref: response.reference
-        };
-        const userDocRef = db.collection('users').doc(currentUser.uid);
-        userDocRef.get().then((doc) => {
-          if (doc.exists) {
-            console.log('User exists — updating credit balance...');
-            return userDocRef.update({
-              credit_balance: firebase.firestore.FieldValue.increment(amount),
-              transactions: firebase.firestore.FieldValue.arrayUnion(transaction)
-            });
+
+        // --- THE FIX: Use the full URL for Live Server ---
+        fetch("http://127.0.0.1:5000/verify_payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ reference: response.reference, userId: currentUser.uid })
+        })
+        .then(res => {
+          console.log('✅ Fetch request completed. Response status:', res.status);
+          return res.json();
+        })
+        .then(data => {
+          console.log('✅ Response JSON parsed:', data);
+          if (data.status) {
+            showNotification('Payment successful! Credits added to your account.', 'success');
+            // Reset UI
+            if (topUpModal) topUpModal.hide();
+            document.getElementById('customAmount').value = '';
+            document.getElementById('paymentNumber').value = '';
+            document.getElementById('paymentEmail').value = '';
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+            // Reload user data to update the dashboard
+            loadUserData(); 
           } else {
-            console.log('Creating new user document...');
-            return userDocRef.set({
-              email: currentUser.email, credit_balance: amount, usage_count: 0,
-              transactions: [transaction], created_at: firebase.firestore.FieldValue.serverTimestamp()
-            });
+            showNotification("Payment verification failed: " + data.message, "error");
           }
         })
-        .then(() => {
-          console.log('✅ Firestore updated successfully.');
-          showLoading(false);
-          topUpModal.hide();
-          showNotification('Payment successful! Credits added to your account.', 'success');
-          document.getElementById('customAmount').value = '';
-          document.getElementById('paymentNumber').value = '';
-          document.getElementById('paymentEmail').value = '';
-          document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-          document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+        .catch(err => {
+          console.error('🔥 Backend communication error:', err);
+          showNotification("Could not verify payment with server. Please contact support.", "error");
         })
-        .catch((error) => {
-          console.error('🔥 Error updating Firestore:', error);
+        .finally(() => {
+          // Always hide the loading spinner
           showLoading(false);
-          showNotification('Error updating account: ' + error.message, 'error');
         });
       },
+
+      // --- The OnClose Function ---
+      // This runs if the user closes the Paystack popup.
       onClose: function () {
-        console.log('Payment closed by user.');
+        console.log('ℹ️ Paystack onClose called.');
         showNotification('Payment cancelled', 'info');
       }
     });
+
+    // This line opens the Paystack payment window.
     handler.openIframe();
+
+  } catch (error) {
+    console.error("🔥 processPayment: An error was caught during Paystack setup:", error);
+    showNotification('An error occurred: ' + error.message, 'error');
   }
+}
+// ... (rest of the file)
 
   function debugUserData() {
     if (currentUser) {
@@ -318,10 +356,16 @@ App.registerModule('App', function () {
           loadUserData();
           showSection('dashboard');
         } else {
+          currentUser = null;
+          if (userListener) {
+            userListener();
+            userListener = null;
+          }
           showSection('auth');
         }
       });
 
+      // --- RESTORED: ALL MISSING EVENT LISTENERS ---
       document.getElementById('logoutLink')?.addEventListener('click', (e) => { e.preventDefault(); logout(); });
       document.getElementById('logoutBtn')?.addEventListener('click', (e) => { e.preventDefault(); logout(); });
       const topUpBtn = document.getElementById('topUpBtn');
@@ -362,4 +406,3 @@ App.registerModule('App', function () {
     handleTopUpClick: handleTopUpClick
   };
 });
-// NOTE: The document.addEventListener('DOMContentLoaded', ...) block has been REMOVED.
