@@ -172,26 +172,26 @@ App.registerModule('Download', function () {
   // --- Helper Functions for Segmented Download ---
   function hideAdditionalPages() {
     // Hide additional director pages
-    document.querySelectorAll('.dir3&4, .dir5&6').forEach(el => {
+    document.querySelectorAll('[id*="addDirector-Page"]').forEach(el => {
       el.style.display = 'none';
     });
     
     // Hide additional subscriber pages
-    document.querySelectorAll('.sub3, .sub4, .sub5, .sub6').forEach(el => {
+    document.querySelectorAll('[id^="subscriber"]:not([id="subscriber1"]):not([id="subscriber2"])').forEach(el => {
       el.style.display = 'none';
     });
     
     // Hide additional owner pages
-    document.querySelectorAll('.Owner3, .Owner4, .Owner5, .Owner6').forEach(el => {
+    document.querySelectorAll('[id^="Owner"]:not([id="Owner1"]):not([id="Owner2"])').forEach(el => {
       el.style.display = 'none';
     });
     
     // Hide additional director declaration and consent pages
-    document.querySelectorAll('.D3-declaration, .D4-declaration, .D5-declaration, .D6-declaration').forEach(el => {
+    document.querySelectorAll('[class*="D"][class*="-declaration"]:not([class*="D1"]):not([class*="D2"])').forEach(el => {
       el.style.display = 'none';
     });
     
-    document.querySelectorAll('.D3-consent, .D4-consent, .D5-consent, .D6-consent').forEach(el => {
+    document.querySelectorAll('[class*="D"][class*="-consent"]:not([class*="D1"]):not([class*="D2"])').forEach(el => {
       el.style.display = 'none';
     });
   }
@@ -201,24 +201,26 @@ App.registerModule('Download', function () {
     // We'll identify them by their absence of special classes
     const allPages = document.querySelectorAll('.page');
     allPages.forEach(page => {
-      if (!page.classList.contains('dir3&4') && 
-          !page.classList.contains('dir5&6') &&
-          !page.classList.contains('sub3') && 
-          !page.classList.contains('sub4') && 
-          !page.classList.contains('sub5') && 
-          !page.classList.contains('sub6') &&
-          !page.classList.contains('Owner3') && 
-          !page.classList.contains('Owner4') && 
-          !page.classList.contains('Owner5') && 
-          !page.classList.contains('Owner6') &&
-          !page.classList.contains('D3-declaration') && 
-          !page.classList.contains('D4-declaration') && 
-          !page.classList.contains('D5-declaration') && 
-          !page.classList.contains('D6-declaration') &&
-          !page.classList.contains('D3-consent') && 
-          !page.classList.contains('D4-consent') && 
-          !page.classList.contains('D5-consent') && 
-          !page.classList.contains('D6-consent')) {
+      const id = page.id;
+      const classes = Array.from(page.classList);
+      
+      // Check if this is an additional page
+      const isAdditionalDirectorPage = id && id.includes('addDirector-Page');
+      const isAdditionalSubscriberPage = id && id.startsWith('subscriber') && 
+                                        !id.includes('subscriber1') && !id.includes('subscriber2');
+      const isAdditionalOwnerPage = id && id.startsWith('Owner') && 
+                                   !id.includes('Owner1') && !id.includes('Owner2');
+      const isAdditionalDeclarationPage = classes.some(c => c.includes('-declaration') && 
+                                        (c.includes('D3') || c.includes('D4') || c.includes('D5') || c.includes('D6')));
+      const isAdditionalConsentPage = classes.some(c => c.includes('-consent') && 
+                                      (c.includes('D3') || c.includes('D4') || c.includes('D5') || c.includes('D6')));
+      
+      // If it's not an additional page, hide it
+      if (!isAdditionalDirectorPage && 
+          !isAdditionalSubscriberPage && 
+          !isAdditionalOwnerPage && 
+          !isAdditionalDeclarationPage && 
+          !isAdditionalConsentPage) {
         page.style.display = 'none';
       }
     });
@@ -232,69 +234,81 @@ App.registerModule('Download', function () {
     
     // Show additional director pages if needed
     if (directorCount > 2) {
-      document.querySelectorAll('.dir3&4').forEach(el => {
+      document.querySelectorAll('[id*="addDirector-Page1three&four"], [id*="addDirector-Page2three&four"], [id*="addDirector-Page3three&four"]').forEach(el => {
         el.style.display = 'block';
       });
     }
     
     if (directorCount > 4) {
-      document.querySelectorAll('.dir5&6').forEach(el => {
+      document.querySelectorAll('[id*="addDirector-Page1five&six"], [id*="addDirector-Page2five&six"], [id*="addDirector-Page3five&six"]').forEach(el => {
         el.style.display = 'block';
       });
     }
     
     // Show additional subscriber pages if needed
     if (subscriberCount > 2) {
-      document.querySelector('.sub3') && (document.querySelector('.sub3').style.display = 'block');
+      const subscriber3 = document.getElementById('subscriber3');
+      if (subscriber3) subscriber3.style.display = 'block';
     }
     if (subscriberCount > 3) {
-      document.querySelector('.sub4') && (document.querySelector('.sub4').style.display = 'block');
+      const subscriber4 = document.getElementById('subscriber4');
+      if (subscriber4) subscriber4.style.display = 'block';
     }
     if (subscriberCount > 4) {
-      document.querySelector('.sub5') && (document.querySelector('.sub5').style.display = 'block');
+      const subscriber5 = document.getElementById('subscriber5');
+      if (subscriber5) subscriber5.style.display = 'block';
     }
     if (subscriberCount > 5) {
-      document.querySelector('.sub6') && (document.querySelector('.sub6').style.display = 'block');
+      const subscriber6 = document.getElementById('subscriber6');
+      if (subscriber6) subscriber6.style.display = 'block';
     }
     
     // Show additional owner pages if needed
     if (ownerCount > 2) {
-      document.querySelectorAll('.Owner3').forEach(el => {
+      document.querySelectorAll('[id^="Owner3"]').forEach(el => {
         el.style.display = 'block';
       });
     }
     if (ownerCount > 3) {
-      document.querySelectorAll('.Owner4').forEach(el => {
+      document.querySelectorAll('[id^="Owner4"]').forEach(el => {
         el.style.display = 'block';
       });
     }
     if (ownerCount > 4) {
-      document.querySelectorAll('.Owner5').forEach(el => {
+      document.querySelectorAll('[id^="Owner5"]').forEach(el => {
         el.style.display = 'block';
       });
     }
     if (ownerCount > 5) {
-      document.querySelectorAll('.Owner6').forEach(el => {
+      document.querySelectorAll('[id^="Owner6"]').forEach(el => {
         el.style.display = 'block';
       });
     }
     
     // Show additional director declaration and consent pages if needed
     if (directorCount > 2) {
-      document.querySelector('.D3-declaration') && (document.querySelector('.D3-declaration').style.display = 'block');
-      document.querySelector('.D3-consent') && (document.querySelector('.D3-consent').style.display = 'block');
+      const d3Declaration = document.querySelector('.D3-declaration');
+      const d3Consent = document.querySelector('.D3-consent');
+      if (d3Declaration) d3Declaration.style.display = 'block';
+      if (d3Consent) d3Consent.style.display = 'block';
     }
     if (directorCount > 3) {
-      document.querySelector('.D4-declaration') && (document.querySelector('.D4-declaration').style.display = 'block');
-      document.querySelector('.D4-consent') && (document.querySelector('.D4-consent').style.display = 'block');
+      const d4Declaration = document.querySelector('.D4-declaration');
+      const d4Consent = document.querySelector('.D4-consent');
+      if (d4Declaration) d4Declaration.style.display = 'block';
+      if (d4Consent) d4Consent.style.display = 'block';
     }
     if (directorCount > 4) {
-      document.querySelector('.D5-declaration') && (document.querySelector('.D5-declaration').style.display = 'block');
-      document.querySelector('.D5-consent') && (document.querySelector('.D5-consent').style.display = 'block');
+      const d5Declaration = document.querySelector('.D5-declaration');
+      const d5Consent = document.querySelector('.D5-consent');
+      if (d5Declaration) d5Declaration.style.display = 'block';
+      if (d5Consent) d5Consent.style.display = 'block';
     }
     if (directorCount > 5) {
-      document.querySelector('.D6-declaration') && (document.querySelector('.D6-declaration').style.display = 'block');
-      document.querySelector('.D6-consent') && (document.querySelector('.D6-consent').style.display = 'block');
+      const d6Declaration = document.querySelector('.D6-declaration');
+      const d6Consent = document.querySelector('.D6-consent');
+      if (d6Declaration) d6Declaration.style.display = 'block';
+      if (d6Consent) d6Consent.style.display = 'block';
     }
   }
 
